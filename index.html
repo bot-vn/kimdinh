@@ -336,13 +336,7 @@
         function setBagMode(mode) {
             bagMode = mode;
             updateModeButtonStyles();
-
-            // Khi người dùng bấm Mua Đủ hoặc Mua Thiếu, tính lại theo số KĐ mục tiêu đang có trong ô Kim Đĩnh
-            let currentKD = parseFloat(els.kd.value.replace(/,/g, '')) || 0;
-            if (currentKD > 0) {
-                lastInput = 'kd';
-                calculateFromKD(currentKD);
-            }
+            recalculateCurrent();
         }
 
         btnModeCeil.addEventListener('click', () => setBagMode('ceil'));
@@ -683,24 +677,91 @@
 
         // ==============================================================
         // CHIỀU 3: NHẬP TIỀN (VNĐ)
-        // - Quy đổi ra Kim Đĩnh mục tiêu theo tỉ giá rồi áp dụng Chiều 2
+        // - Quy đổi ra Kim Đĩnh mục tiêu theo tỉ giá.
+        // - Ô Tiền VNĐ là CỐ ĐỊNH do người dùng nhập, tuyệt đối không bị ghi đè.
+        // - Tính toán số lượng túi và Xu Game theo chế độ Mua Đủ / Mua Thiếu.
         // ==============================================================
         function calculateFromVND(totalVND) {
             lastInput = 'vnd';
             let rate = parseFloat(els.rate.value) || 0;
 
-            if (totalVND <= 0 || rate <= 0) {
+            if (totalVND <= 0) {
                 els.kd.value = "";
                 els.xu.value = "";
+                subEls.vnd.innerText = "";
+                subEls.kd.innerText = "";
+                subEls.xu.innerText = "";
+                resetAll();
+                updateFinancials(0);
+                return;
+            }
+
+            // Cập nhật nhãn phụ VNĐ và các chỉ số tài chính theo đúng số tiền người dùng nhập
+            subEls.vnd.innerText = formatUnit(Math.round(totalVND), 'vnd');
+            updateFinancials(totalVND);
+
+            if (rate <= 0) {
+                els.kd.value = "0";
+                els.xu.value = "0";
                 resetAll();
                 return;
             }
 
+            // Quy đổi sang Kim Đĩnh mục tiêu theo tỉ giá
             let targetKD = Math.round(totalVND / rate);
             els.kd.value = targetKD > 0 ? formatNum(targetKD) : "0";
+            subEls.kd.innerText = targetKD > 0 ? formatUnit(targetKD, 'kd') : "";
 
-            calculateFromKD(targetKD);
-            lastInput = 'vnd';
+            if (targetKD <= 0) {
+                els.xu.value = "0";
+                subEls.xu.innerText = "";
+                showDiffNormal(0, 0, 0, 0);
+                return;
+            }
+
+            if (bagMode === 'ceil') {
+                // CHẾ ĐỘ 1: MUA ĐỦ - Làm tròn lên
+                let totalTuiNho = Math.ceil(targetKD / KD_TUI_NHO);
+                let tl = Math.floor(totalTuiNho / 10);
+                let tn = totalTuiNho % 10;
+
+                let totalKDGot = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
+                let xuNeedSpent = (tl * XU_TUI_LON) + (tn * XU_TUI_NHO);
+
+                els.xu.value = xuNeedSpent > 0 ? formatNum(xuNeedSpent) : "0";
+
+                let kdDu = totalKDGot - targetKD;
+                let xuDu = 0; // Đã gom trọn vào túi nên xu lẻ trong ví = 0
+
+                showDiffNormal(tl, tn, kdDu, xuDu);
+                subEls.xu.innerText = formatUnit(xuNeedSpent, 'xu');
+            } else {
+                // CHẾ ĐỘ 2: MUA THIẾU - Làm tròn xuống gói túi sát nhất
+                let totalTuiNho = Math.floor(targetKD / KD_TUI_NHO);
+                let tl = Math.floor(totalTuiNho / 10);
+                let tn = totalTuiNho % 10;
+
+                let totalKDGot = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
+                let xuNeedSpent = (tl * XU_TUI_LON) + (tn * XU_TUI_NHO);
+
+                els.xu.value = xuNeedSpent > 0 ? formatNum(xuNeedSpent) : "0";
+
+                let kdDiff = totalKDGot - targetKD;
+
+                if (kdDiff < 0) {
+                    let kdThieu = Math.abs(kdDiff);
+                    let tuiNhoCanBu = Math.ceil(kdThieu / KD_TUI_NHO);
+                    let tlBu = Math.floor(tuiNhoCanBu / 10);
+                    let tnBu = tuiNhoCanBu % 10;
+                    let xuThieu = (tlBu * XU_TUI_LON) + (tnBu * XU_TUI_NHO);
+
+                    showDiffAlert(tl, tn, kdThieu, xuThieu);
+                } else {
+                    showDiffNormal(tl, tn, 0, 0);
+                }
+
+                subEls.xu.innerText = formatUnit(xuNeedSpent, 'xu');
+            }
         }
 
         // ==============================================================
@@ -762,39 +823,39 @@
         // ==============================================================
         els.xu.addEventListener('focus', function() { this.select(); });
         els.xu.addEventListener('input', function() {
-            let rawVal = this.value.replace(/,/g, '');
+            let rawVal = this.value.replace(/\D/g, '');
             if (rawVal === "") {
                 this.value = "";
                 calculateFromXu(0);
                 return;
             }
-            let val = parseFloat(rawVal) || 0;
+            let val = parseInt(rawVal, 10) || 0;
             this.value = formatNum(val);
             calculateFromXu(val);
         });
 
         els.kd.addEventListener('focus', function() { this.select(); });
         els.kd.addEventListener('input', function() {
-            let rawVal = this.value.replace(/,/g, '');
+            let rawVal = this.value.replace(/\D/g, '');
             if (rawVal === "") {
                 this.value = "";
                 calculateFromKD(0);
                 return;
             }
-            let val = parseFloat(rawVal) || 0;
+            let val = parseInt(rawVal, 10) || 0;
             this.value = formatNum(val);
             calculateFromKD(val);
         });
 
         els.vnd.addEventListener('focus', function() { this.select(); });
         els.vnd.addEventListener('input', function() {
-            let rawVal = this.value.replace(/,/g, '');
+            let rawVal = this.value.replace(/\D/g, '');
             if (rawVal === "") {
                 this.value = "";
                 calculateFromVND(0);
                 return;
             }
-            let val = parseFloat(rawVal) || 0;
+            let val = parseInt(rawVal, 10) || 0;
             this.value = formatNum(val);
             calculateFromVND(val);
         });
