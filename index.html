@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Máy Tính Kim Đĩnh</title>
+    <title>Máy Tính Kim Đĩnh - KIM ĐĨNH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        html {
+            scrollbar-width: none;
+        }
+        html::-webkit-scrollbar {
+            display: none;
+        }
         * {
             font-family: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, sans-serif;
         }
@@ -30,7 +36,6 @@
 
     <div class="w-full max-w-[26rem] relative z-10 bg-[#0a0806] border border-[#ffcf40]/70 rounded-[1.5rem] p-6 shadow-[0_0_50px_rgba(255,208,67,0.2)] ring-1 ring-inset ring-[#ffcf40]/30">
         
-        <!-- Họa tiết 4 góc -->
         <svg class="absolute top-1.5 left-1.5 w-7 h-7 text-[#ffcf40] opacity-90" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
             <path d="M 0,100 C 0,50 50,0 100,0" />
             <path d="M 0,70 C 0,35 35,0 70,0" />
@@ -53,7 +58,6 @@
         </svg>
 
         <div class="relative px-2 py-2">
-            <!-- Header -->
             <div class="flex items-center justify-center space-x-3 mb-3">
                 <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#fff3c7] to-[#e5ac27] flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,208,67,0.6)]">
                     <div class="w-full h-full rounded-full border border-[#b08011] bg-[#ffcf40] flex items-center justify-center">
@@ -65,11 +69,8 @@
                 </h1>
             </div>
 
-            <!-- Hàng SERVER & TỶ GIÁ -->
             <div class="flex items-center justify-between mb-3 border-b border-[#e5ac27]/40 pb-3 gap-2">
-                <!-- Khu vực chọn SERVER (căn lề trái) -->
                 <div class="flex items-center space-x-1.5 min-w-0">
-                    <!-- Ô nhập số hiệu server -->
                     <div class="flex items-baseline border border-[#e5ac27]/70 bg-black/60 rounded-xl px-2 py-1 shadow-[inset_0_0_10px_rgba(0,0,0,0.9)] shrink-0">
                         <span class="text-[#ffcf40] text-sm font-bold select-none leading-none relative" style="line-height: 1; vertical-align: baseline;">S</span>
                         <input type="text" inputmode="numeric" id="input_server_num" value="1" placeholder="1" title="Nhập số Server"
@@ -77,7 +78,6 @@
                             style="line-height: 1; vertical-align: baseline;">
                     </div>
 
-                    <!-- Nút/nhãn tên server (chọn nhanh từ danh sách - tên thuần túy) -->
                     <div class="relative flex items-center min-w-0">
                         <select id="select_server" title="Chọn nhanh Server"
                             class="bg-black/60 text-[#fff3c7] border border-[#e5ac27]/70 rounded-xl pl-2 pr-5 py-1 text-xs sm:text-sm font-bold shadow-[inset_0_0_10px_rgba(0,0,0,0.9)] focus:outline-none focus:border-[#ffcf40] appearance-none cursor-pointer max-w-[115px] sm:max-w-[140px] truncate">
@@ -111,11 +111,9 @@
                     </div>
                 </div>
 
-                <!-- Khu vực TỶ GIÁ (Chữ TỶ GIÁ đặt sát bên trái ô 90đ) -->
                 <div class="flex items-center space-x-1.5 shrink-0">
                     <span class="text-[10px] sm:text-[11px] text-[#ffcf40] tracking-wider font-bold uppercase whitespace-nowrap">Tỷ Giá</span>
                     <div class="flex items-center space-x-1 border border-[#e5ac27]/70 bg-black/60 rounded-xl px-2 py-1 shadow-[inset_0_0_10px_rgba(0,0,0,0.9)]">
-                        <!-- Nút Tăng / Giảm tỉ giá mini -->
                         <div class="flex flex-col justify-center space-y-0.5 pr-1 border-r border-[#e5ac27]/40">
                             <button type="button" id="btn_rate_up" title="Tăng tỉ giá" 
                                 class="w-3.5 h-2.5 flex items-center justify-center text-[#ffcf40] hover:text-[#fff3c7] active:scale-75 transition-all">
@@ -137,14 +135,14 @@
                 </div>
             </div>
 
-            <!-- Form Inputs -->
             <div class="space-y-2.5">
-                
-                <!-- Kim Đĩnh & Xu (Game) trên 1 hàng (2 cột bằng nhau) -->
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <div class="mb-1 px-1 flex justify-between items-end gap-1">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0">Kim Đĩnh</label>
+                            <label class="flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0 cursor-pointer">
+                                <input type="radio" name="sale_mode" id="sale_mode_kd" value="kd" checked class="w-3.5 h-3.5 shrink-0 accent-[#ffcf40] cursor-pointer">
+                                Kim Đĩnh
+                            </label>
                             <span id="sub_kd" class="text-[10px] sm:text-[11px] font-bold text-[#4ade80] drop-shadow-[0_0_2px_rgba(74,222,128,0.8)] text-right truncate"></span>
                         </div>
                         <input type="text" inputmode="numeric" id="input_kd" placeholder="0"
@@ -153,7 +151,10 @@
 
                     <div>
                         <div class="mb-1 px-1 flex justify-between items-end gap-1">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0">Xu (Game)</label>
+                            <label class="flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0 cursor-pointer">
+                                <input type="radio" name="sale_mode" id="sale_mode_xu" value="xu" class="w-3.5 h-3.5 shrink-0 accent-[#ffcf40] cursor-pointer">
+                                Xu
+                            </label>
                             <span id="sub_xu" class="text-[10px] sm:text-[11px] font-bold text-[#4ade80] drop-shadow-[0_0_2px_rgba(74,222,128,0.8)] text-right truncate"></span>
                         </div>
                         <input type="text" inputmode="numeric" id="input_xu" placeholder="0"
@@ -161,18 +162,16 @@
                     </div>
                 </div>
 
-                <!-- Tiền (VNĐ) -->
                 <div>
                     <div class="mb-1 px-1 flex justify-between items-end gap-1">
-                        <label class="text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0">Tiền (VNĐ)</label>
+                        <label class="text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase shrink-0">Thành Tiền</label>
                         <span id="sub_vnd" class="text-[11px] font-bold text-[#4ade80] drop-shadow-[0_0_2px_rgba(74,222,128,0.8)] text-right truncate"></span>
                     </div>
                     <input type="text" inputmode="numeric" id="input_vnd" placeholder="0"
                         class="w-full bg-[#030201] border border-[#e5ac27]/60 text-[#fff3c7] text-lg font-bold rounded-[0.75rem] px-4 py-2 focus:outline-none focus:border-[#ffcf40] focus:ring-1 focus:ring-[#ffcf40]/60 shadow-[inset_0_2px_10px_rgba(0,0,0,1)] transition-all">
                 </div>
 
-                <!-- Cụm chọn chế độ túi: 1 hàng ngang gọn gàng, khung 2 nút căn chuẩn bằng đúng 2 ô KĐ Dư và Xu Dư bên dưới -->
-                <div class="grid grid-cols-4 gap-1.5 items-center pt-1">
+                <div id="bag_controls" class="grid grid-cols-4 gap-1.5 items-center pt-1">
                     <div class="col-span-2 px-1 flex items-center">
                         <span class="text-[10px] sm:text-[11px] font-bold text-[#ffcf40] tracking-wide uppercase truncate">
                             Số Lượng Túi KĐ:
@@ -190,8 +189,7 @@
                     </div>
                 </div>
 
-                <!-- 4 Ô Kết Quả (Túi Lớn, Túi Nhỏ có thể nhập trực tiếp; KĐ Dư/Thiếu, Xu Dư/Thiếu) -->
-                <div class="grid grid-cols-4 gap-1.5 pt-0.5">
+                <div id="bag_results" class="grid grid-cols-4 gap-1.5 pt-0.5">
                     <div class="bg-[#030201] border border-[#e5ac27]/60 rounded-[0.75rem] p-1.5 text-center shadow-[inset_0_2px_10px_rgba(0,0,0,1)] focus-within:border-[#ffcf40] focus-within:ring-1 focus-within:ring-[#ffcf40]/60 transition-all">
                         <label for="input_tl" class="block text-[9px] sm:text-[10px] font-bold text-[#ffcf40] tracking-wide uppercase mb-0.5 cursor-pointer">Túi Lớn</label>
                         <input type="text" inputmode="numeric" id="input_tl" value="0" placeholder="0"
@@ -212,7 +210,6 @@
                     </div>
                 </div>
 
-                <!-- DẢI PHÂN CÁCH HOA VĂN -->
                 <div class="flex items-center justify-center py-2">
                     <div class="h-px w-full bg-gradient-to-r from-transparent to-[#e5ac27]/70"></div>
                     <div class="mx-4 flex items-center space-x-1.5">
@@ -223,7 +220,6 @@
                     <div class="h-px w-full bg-gradient-to-l from-transparent to-[#e5ac27]/70"></div>
                 </div>
 
-                <!-- KHU VỰC KẾT QUẢ TÀI CHÍNH -->
                 <div class="space-y-2">
                     <div class="grid grid-cols-2 gap-2">
                         <div class="bg-[#030201]/50 border border-[#e5ac27]/30 rounded-lg p-2 text-center">
@@ -251,20 +247,16 @@
 
     </div>
 
-    <!-- Javascript Logic -->
     <script>
-        // Quy chuẩn game:
-        // 1 Túi Lớn = 340 Xu = 3,400 Kim Đĩnh
-        // 1 Túi Nhỏ = 34 Xu = 340 Kim Đĩnh
-        // 10 Túi Nhỏ gom thành 1 Túi Lớn
         const XU_TUI_LON = 340;     
         const KD_TUI_LON = 3400;    
         
         const XU_TUI_NHO = 34;      
         const KD_TUI_NHO = 340;     
 
-        let bagMode = 'ceil';           // 'ceil': Mua Đủ; 'floor': Mua Thiếu
-        let lastInput = 'kd';           // 'kd' | 'xu' | 'vnd'
+        let saleMode = 'kd';
+        let bagMode = 'ceil';
+        let lastInput = 'kd';
 
         const els = {
             rate: document.getElementById('input_rate'),
@@ -273,9 +265,6 @@
             vnd: document.getElementById('input_vnd')
         };
 
-        // ==============================================================
-        // LƯU TRỮ VÀ KHÔI PHỤC TỈ GIÁ (LOCALSTORAGE)
-        // ==============================================================
         function loadSavedRate() {
             try {
                 const savedRate = localStorage.getItem('kimdinh_rate');
@@ -295,7 +284,6 @@
             }
         }
 
-        // Tự động khôi phục Tỉ giá đã lưu khi vừa tải trang
         loadSavedRate();
 
         const resEls = {
@@ -321,8 +309,25 @@
 
         const btnModeCeil = document.getElementById('btn_mode_ceil');
         const btnModeFloor = document.getElementById('btn_mode_floor');
+        const saleModeKD = document.getElementById('sale_mode_kd');
+        const saleModeXu = document.getElementById('sale_mode_xu');
+        const bagControls = document.getElementById('bag_controls');
+        const bagResults = document.getElementById('bag_results');
         const btnRateUp = document.getElementById('btn_rate_up');
         const btnRateDown = document.getElementById('btn_rate_down');
+
+        function setSaleMode(mode) {
+            saleMode = mode;
+            saleModeKD.checked = mode === 'kd';
+            saleModeXu.checked = mode === 'xu';
+            bagControls.classList.toggle('hidden', mode === 'xu');
+            bagResults.classList.toggle('hidden', mode === 'xu');
+            if (lastInput === 'bag') lastInput = 'xu';
+            recalculateCurrent();
+        }
+
+        saleModeKD.addEventListener('change', () => setSaleMode('kd'));
+        saleModeXu.addEventListener('change', () => setSaleMode('xu'));
 
         function updateModeButtonStyles() {
             if (bagMode === 'ceil') {
@@ -334,7 +339,6 @@
             }
         }
 
-        // Chuyển đổi qua lại giữa 2 chế độ Mua Đủ / Mua Thiếu
         function setBagMode(mode) {
             bagMode = mode;
             updateModeButtonStyles();
@@ -344,7 +348,6 @@
         btnModeCeil.addEventListener('click', () => setBagMode('ceil'));
         btnModeFloor.addEventListener('click', () => setBagMode('floor'));
 
-        // Xử lý nút tăng / giảm tỉ giá nhanh (kèm lưu vào localStorage)
         btnRateUp.addEventListener('click', () => {
             let currentRate = parseFloat(els.rate.value) || 0;
             currentRate += 1;
@@ -363,9 +366,6 @@
             }
         });
 
-        // ==============================================================
-        // QUẢN LÝ ĐỒNG BỘ SERVER (SỐ HIỆU & TÊN SERVER)
-        // ==============================================================
         const SERVER_LIST = [
             { id: 1, name: "Tung Sơn" },
             { id: 2, name: "Trường Giang" },
@@ -393,7 +393,6 @@
         const elServerSelect = document.getElementById('select_server');
         const optNoServer = document.getElementById('opt_no_server');
 
-        // Khi người dùng chọn từ danh sách dropdown
         elServerSelect.addEventListener('change', function() {
             if (this.value) {
                 elServerNum.value = this.value;
@@ -401,9 +400,8 @@
             }
         });
 
-        // Khi người dùng gõ số vào ô số hiệu server (ví dụ gõ 3)
         elServerNum.addEventListener('input', function() {
-            let raw = this.value.replace(/\D/g, ''); // chỉ nhận ký tự số
+            let raw = this.value.replace(/\D/g, '');
             this.value = raw;
             if (raw === "") {
                 if (optNoServer) {
@@ -420,7 +418,6 @@
                 if (optNoServer) optNoServer.hidden = true;
                 elServerSelect.value = String(found.id);
             } else {
-                // Nếu số server không có trong danh sách -> hiển thị "Không có"
                 if (optNoServer) {
                     optNoServer.hidden = false;
                     elServerSelect.value = "";
@@ -486,11 +483,6 @@
             return formatNum(val);
         }
 
-        // CÔNG THỨC TÀI CHÍNH:
-        // - Vốn Nhập = 85% tổng tiền VNĐ
-        // - Tổng Lãi = tổng tiền VNĐ * 15%
-        // - Thực Lãi = 50% của Tổng Lãi
-        // - Cần Thanh Toán = Vốn Nhập + Thực Lãi
         function updateFinancials(totalVND) {
             let cost = totalVND * 0.85;
             let totalProfit = totalVND * 0.15;
@@ -503,7 +495,6 @@
             resEls.gui.innerText = formatNum(Math.round(needPay)) + " đ";
         }
 
-        // Hiển thị trạng thái DƯ (màu vàng hoàng kim bình thường)
         function showDiffNormal(tl, tn, kdDu, xuDu) {
             if (document.activeElement !== resEls.tl) resEls.tl.value = formatNum(tl);
             if (document.activeElement !== resEls.tn) resEls.tn.value = formatNum(tn);
@@ -522,7 +513,6 @@
             resEls.box_xu.className = "bg-[#030201] border border-[#e5ac27]/60 rounded-[0.75rem] p-1.5 text-center shadow-[inset_0_2px_10px_rgba(0,0,0,1)] transition-colors";
         }
 
-        // Hiển thị trạng thái THIẾU (màu đỏ cảnh báo)
         function showDiffAlert(tl, tn, kdThieu, xuThieu) {
             if (document.activeElement !== resEls.tl) resEls.tl.value = formatNum(tl);
             if (document.activeElement !== resEls.tn) resEls.tn.value = formatNum(tn);
@@ -551,12 +541,6 @@
             updateFinancials(0);
         }
 
-        // ==============================================================
-        // CHIỀU 1: NHẬP XU TRỰC TIẾP
-        // - Số Xu trong ô Xu là CỐ ĐỊNH do người dùng nhập.
-        // - Ô Kim Đĩnh hiển thị CHÍNH XÁC lượng Kim Đĩnh THỰC TẾ mở ra.
-        // - Kết quả bên dưới: Xu Dư và KĐ Dư hiển thị chuẩn xác số dư thực tế trong ví túi.
-        // ==============================================================
         function calculateFromXu(inputXu) {
             lastInput = 'xu';
             let rate = parseFloat(els.rate.value) || 0;
@@ -568,24 +552,32 @@
                 return;
             }
 
-            // 1. Tính số túi mua được tối đa từ tổng số Xu đó
+            if (saleMode === 'xu') {
+                let totalKD = inputXu * 10;
+                let totalVND = totalKD * rate;
+                els.kd.value = formatNum(totalKD);
+                els.vnd.value = totalVND > 0 ? formatNum(Math.round(totalVND)) : "0";
+                showDiffNormal(0, 0, 0, 0);
+                subEls.xu.innerText = formatUnit(inputXu, 'xu');
+                subEls.kd.innerText = formatUnit(totalKD, 'kd');
+                subEls.vnd.innerText = formatUnit(Math.round(totalVND), 'vnd');
+                updateFinancials(totalVND);
+                return;
+            }
+
             let tl = Math.floor(inputXu / XU_TUI_LON);
             let remXu = inputXu % XU_TUI_LON;
             let tn = Math.floor(remXu / XU_TUI_NHO);
-            let xuDu = remXu % XU_TUI_NHO; // Số Xu dư thực tế trong ví không đủ mua thêm túi
-            let kdDu = xuDu * 10;          // Số KĐ dư tương ứng
+            let xuDu = remXu % XU_TUI_NHO;
+            let kdDu = xuDu * 10;
 
-            // 2. Kim Đĩnh THỰC TẾ mở ra từ các túi trên
             let realKD = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
 
-            // 3. Hiển thị chính xác lượng Kim Đĩnh THỰC TẾ mở ra ở ô Kim Đĩnh
             els.kd.value = formatNum(realKD);
 
-            // 4. Tiền VNĐ tính theo lượng Kim Đĩnh thực tế mở ra
             let totalVND = realKD * rate;
             els.vnd.value = totalVND > 0 ? formatNum(Math.round(totalVND)) : "0";
 
-            // 5. Hiển thị chuẩn xác Xu Dư và KĐ Dư màu vàng
             showDiffNormal(tl, tn, kdDu, xuDu);
 
             subEls.xu.innerText = formatUnit(inputXu, 'xu');
@@ -595,14 +587,6 @@
             updateFinancials(totalVND);
         }
 
-        // ==============================================================
-        // CHIỀU 2: NHẬP KIM ĐĨNH (MỤC TIÊU)
-        // - Ô Kim Đĩnh LUÔN GIỮ CỐ ĐỊNH mục tiêu mà người dùng nhập (ví dụ 30,000 KĐ),
-        //   tuyệt đối không bị thay đổi tự động thành 29,920 hay số khác khi chọn Mua Thiếu.
-        // - 'Mua Đủ': Làm tròn lên để mua đủ túi. Ô Xu tự nhảy số Xu chi. KĐ Dư hiện số dư, Xu Dư = 0.
-        // - 'Mua Thiếu': Làm tròn xuống gói túi sát nhất. Ô Xu tự nhảy số Xu chi.
-        //   Bên dưới hiển thị chính xác 'KĐ Thiếu' và 'Xu Thiếu' (tính theo gói túi cần mua bù).
-        // ==============================================================
         function calculateFromKD(targetKD) {
             lastInput = 'kd';
             let rate = parseFloat(els.rate.value) || 0;
@@ -617,8 +601,18 @@
             let totalVND = targetKD * rate;
             els.vnd.value = totalVND > 0 ? formatNum(Math.round(totalVND)) : "0";
 
+            if (saleMode === 'xu') {
+                let xuNeeded = Math.ceil(targetKD / 10);
+                els.xu.value = formatNum(xuNeeded);
+                showDiffNormal(0, 0, 0, 0);
+                subEls.kd.innerText = formatUnit(targetKD, 'kd');
+                subEls.xu.innerText = formatUnit(xuNeeded, 'xu');
+                subEls.vnd.innerText = formatUnit(Math.round(totalVND), 'vnd');
+                updateFinancials(totalVND);
+                return;
+            }
+
             if (bagMode === 'ceil') {
-                // CHẾ ĐỘ 1: MUA ĐỦ - Làm tròn lên
                 let totalTuiNho = Math.ceil(targetKD / KD_TUI_NHO);
                 let tl = Math.floor(totalTuiNho / 10);
                 let tn = totalTuiNho % 10;
@@ -626,11 +620,10 @@
                 let totalKDGot = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
                 let xuNeedSpent = (tl * XU_TUI_LON) + (tn * XU_TUI_NHO);
 
-                // Ô Xu tự động hiển thị số Xu cần chi để mua đủ túi
                 els.xu.value = xuNeedSpent > 0 ? formatNum(xuNeedSpent) : "0";
 
                 let kdDu = totalKDGot - targetKD;
-                let xuDu = 0; // Đã gom trọn vào túi nên xu lẻ trong ví = 0
+                let xuDu = 0;
 
                 showDiffNormal(tl, tn, kdDu, xuDu);
 
@@ -640,8 +633,6 @@
 
                 updateFinancials(totalVND);
             } else {
-                // CHẾ ĐỘ 2: MUA THIẾU - Làm tròn xuống gói túi sát nhất
-                // Ô Kim Đĩnh VẪN GIỮ NGUYÊN mục tiêu (ví dụ 30,000 KĐ)
                 let totalTuiNho = Math.floor(targetKD / KD_TUI_NHO);
                 let tl = Math.floor(totalTuiNho / 10);
                 let tn = totalTuiNho % 10;
@@ -649,25 +640,20 @@
                 let totalKDGot = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
                 let xuNeedSpent = (tl * XU_TUI_LON) + (tn * XU_TUI_NHO);
 
-                // Ô Xu hiển thị số Xu chi cho gói túi sát nhất này
                 els.xu.value = xuNeedSpent > 0 ? formatNum(xuNeedSpent) : "0";
 
                 let kdDiff = totalKDGot - targetKD;
 
                 if (kdDiff < 0) {
-                    // BỊ THIẾU SO VỚI MỤC TIÊU
                     let kdThieu = Math.abs(kdDiff);
 
-                    // Số Xu Thiếu tính theo đơn vị gói túi thực tế cần mua thêm để bù đủ
                     let tuiNhoCanBu = Math.ceil(kdThieu / KD_TUI_NHO);
                     let tlBu = Math.floor(tuiNhoCanBu / 10);
                     let tnBu = tuiNhoCanBu % 10;
                     let xuThieu = (tlBu * XU_TUI_LON) + (tnBu * XU_TUI_NHO);
 
-                    // Đổi sang KĐ Thiếu và Xu Thiếu màu đỏ cảnh báo
                     showDiffAlert(tl, tn, kdThieu, xuThieu);
                 } else {
-                    // Khớp đúng mục tiêu (chia hết)
                     showDiffNormal(tl, tn, 0, 0);
                 }
 
@@ -679,12 +665,6 @@
             }
         }
 
-        // ==============================================================
-        // CHIỀU 3: NHẬP TIỀN (VNĐ)
-        // - Quy đổi ra Kim Đĩnh mục tiêu theo tỉ giá.
-        // - Ô Tiền VNĐ là CỐ ĐỊNH do người dùng nhập, tuyệt đối không bị ghi đè.
-        // - Tính toán số lượng túi và Xu Game theo chế độ Mua Đủ / Mua Thiếu.
-        // ==============================================================
         function calculateFromVND(totalVND) {
             lastInput = 'vnd';
             let rate = parseFloat(els.rate.value) || 0;
@@ -700,7 +680,6 @@
                 return;
             }
 
-            // Cập nhật nhãn phụ VNĐ và các chỉ số tài chính theo đúng số tiền người dùng nhập
             subEls.vnd.innerText = formatUnit(Math.round(totalVND), 'vnd');
             updateFinancials(totalVND);
 
@@ -711,7 +690,6 @@
                 return;
             }
 
-            // Quy đổi sang Kim Đĩnh mục tiêu theo tỉ giá
             let targetKD = Math.round(totalVND / rate);
             els.kd.value = targetKD > 0 ? formatNum(targetKD) : "0";
             subEls.kd.innerText = targetKD > 0 ? formatUnit(targetKD, 'kd') : "";
@@ -723,8 +701,15 @@
                 return;
             }
 
+            if (saleMode === 'xu') {
+                let xuNeeded = Math.ceil(targetKD / 10);
+                els.xu.value = formatNum(xuNeeded);
+                subEls.xu.innerText = formatUnit(xuNeeded, 'xu');
+                showDiffNormal(0, 0, 0, 0);
+                return;
+            }
+
             if (bagMode === 'ceil') {
-                // CHẾ ĐỘ 1: MUA ĐỦ - Làm tròn lên
                 let totalTuiNho = Math.ceil(targetKD / KD_TUI_NHO);
                 let tl = Math.floor(totalTuiNho / 10);
                 let tn = totalTuiNho % 10;
@@ -735,12 +720,11 @@
                 els.xu.value = xuNeedSpent > 0 ? formatNum(xuNeedSpent) : "0";
 
                 let kdDu = totalKDGot - targetKD;
-                let xuDu = 0; // Đã gom trọn vào túi nên xu lẻ trong ví = 0
+                let xuDu = 0;
 
                 showDiffNormal(tl, tn, kdDu, xuDu);
                 subEls.xu.innerText = formatUnit(xuNeedSpent, 'xu');
             } else {
-                // CHẾ ĐỘ 2: MUA THIẾU - Làm tròn xuống gói túi sát nhất
                 let totalTuiNho = Math.floor(targetKD / KD_TUI_NHO);
                 let tl = Math.floor(totalTuiNho / 10);
                 let tn = totalTuiNho % 10;
@@ -768,12 +752,6 @@
             }
         }
 
-        // ==============================================================
-        // CHIỀU 4: NHẬP TRỰC TIẾP TÚI LỚN & TÚI NHỎ
-        // - Người dùng tự gõ số Túi Lớn / Túi Nhỏ:
-        //   Hệ thống tính ngược ra Tổng Kim Đĩnh, Tổng Xu Game, Tiền VNĐ,
-        //   các chỉ số tài chính (vốn/lãi/thanh toán) ngay lập tức.
-        // ==============================================================
         function calculateFromBags() {
             lastInput = 'bag';
             let rate = parseFloat(els.rate.value) || 0;
@@ -786,7 +764,6 @@
             if (tl < 0) tl = 0;
             if (tn < 0) tn = 0;
 
-            // 1. Tính tổng Kim Đĩnh và Xu Game từ số túi thực tế
             let totalKD = (tl * KD_TUI_LON) + (tn * KD_TUI_NHO);
             let totalXu = (tl * XU_TUI_LON) + (tn * XU_TUI_NHO);
 
@@ -802,29 +779,21 @@
                 return;
             }
 
-            // 2. Cập nhật các ô input phía trên
             els.kd.value = formatNum(totalKD);
             els.xu.value = formatNum(totalXu);
 
-            // 3. Tiền VNĐ tính theo tổng Kim Đĩnh
             let totalVND = totalKD * rate;
             els.vnd.value = totalVND > 0 ? formatNum(Math.round(totalVND)) : "0";
 
-            // 4. KĐ Dư = 0, Xu Dư = 0 (trạng thái màu vàng bình thường)
             showDiffNormal(tl, tn, 0, 0);
 
-            // 5. Cập nhật các nhãn phụ (vạn, triệu, ngàn)
             subEls.kd.innerText = formatUnit(totalKD, 'kd');
             subEls.xu.innerText = formatUnit(totalXu, 'xu');
             subEls.vnd.innerText = formatUnit(Math.round(totalVND), 'vnd');
 
-            // 6. Cập nhật các chỉ số tài chính
             updateFinancials(totalVND);
         }
 
-        // ==============================================================
-        // LẮNG NGHE SỰ KIỆN GÕ PHÍM - TÁCH BIỆT CÁC CHIỀU ĐỘC LẬP
-        // ==============================================================
         els.xu.addEventListener('focus', function() { this.select(); });
         els.xu.addEventListener('input', function() {
             let rawVal = this.value.replace(/\D/g, '');
@@ -864,7 +833,6 @@
             calculateFromVND(val);
         });
 
-        // Lắng nghe sự kiện gõ ở ô Túi Lớn và Túi Nhỏ
         resEls.tl.addEventListener('focus', function() { this.select(); });
         resEls.tl.addEventListener('input', function() {
             let raw = this.value.replace(/\D/g, '');
