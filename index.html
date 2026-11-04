@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <h1 class="text-xl sm:text-2xl font-black tracking-wider text-[#fde38c] drop-shadow-[0_2px_5px_rgba(0,0,0,1)]">
-                    KIM ĐĨNH J7 STORE
+                    KIM ĐĨNH RATE
                 </h1>
             </div>
 
@@ -435,22 +435,22 @@
 
         function recalculateCurrent() {
             if (lastInput === 'xu') {
-                let val = parseFloat(els.xu.value.replace(/,/g, '')) || 0;
+                let val = parseFloat(els.xu.value.replace(/\./g, '')) || 0;
                 calculateFromXu(val);
             } else if (lastInput === 'vnd') {
-                let val = parseFloat(els.vnd.value.replace(/,/g, '')) || 0;
+                let val = parseFloat(els.vnd.value.replace(/\./g, '')) || 0;
                 calculateFromVND(val);
             } else if (lastInput === 'bag') {
                 calculateFromBags();
             } else {
-                let val = parseFloat(els.kd.value.replace(/,/g, '')) || 0;
+                let val = parseFloat(els.kd.value.replace(/\./g, '')) || 0;
                 calculateFromKD(val);
             }
         }
 
         function formatNum(num) {
             if (num === null || num === undefined || isNaN(num)) return "0";
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
         function formatUnit(val, type) {
@@ -756,8 +756,8 @@
             lastInput = 'bag';
             let rate = parseFloat(els.rate.value) || 0;
 
-            let rawTL = resEls.tl.value.replace(/,/g, '');
-            let rawTN = resEls.tn.value.replace(/,/g, '');
+            let rawTL = resEls.tl.value.replace(/\./g, '');
+            let rawTN = resEls.tn.value.replace(/\./g, '');
             let tl = parseInt(rawTL, 10) || 0;
             let tn = parseInt(rawTN, 10) || 0;
 
